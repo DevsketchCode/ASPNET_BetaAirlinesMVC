@@ -1,0 +1,51 @@
+﻿@model BetaAirlinesMVC.Models.BookedFlight
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BookedFlight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Flight.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flight.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateBooked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateBooked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
