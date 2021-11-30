@@ -29,6 +29,23 @@ namespace BetaAirlinesMVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
+
+            // Create the list of User Roles
+            List<UserRole> roles = new List<UserRole>();
+
+            foreach (var userRole in db.UserRoles.Where(e => e.Id == id && e.Active == 1))
+            {
+                // get the single user's role
+                UserRole usersRole = db.UserRoles.Where(me => me.Id == userRole.Id).SingleOrDefault();
+
+                UserRole urm = new UserRole();
+                // Populate  the object with the information from the database
+                urm.Role = usersRole.Role;
+                urm.Description = usersRole.Description;
+
+                // Add to the roles list
+                roles.Add(urm);
+            }
             if (user == null)
             {
                 return HttpNotFound();
@@ -39,7 +56,9 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role");
+            //ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role");
+            // Name the item in the viewbag whatever you'd like. ViewBag.[CustomName]
+            ViewBag.UserRole = db.UserRoles.ToList();
             return View();
         }
 

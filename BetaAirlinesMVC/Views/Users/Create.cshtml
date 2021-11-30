@@ -67,7 +67,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserRoleID, "UserRoleID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("UserRoleID", null, htmlAttributes: new { @class = "form-control" })
+
+                @*@Html.DropDownList("UserRoleID", null, htmlAttributes: new { @class = "form-control" })*@
+                @*TODO: FIX THE DROPDOWN FOR USER ROLES*@
+                @Html.DropDownList("User Roles", new SelectList(ViewBag.UserRoles, "Role", "Role"));
                 @Html.ValidationMessageFor(model => model.UserRoleID, "", new { @class = "text-danger" })
             </div>
         </div>

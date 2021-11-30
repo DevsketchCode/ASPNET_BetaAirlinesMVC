@@ -19,11 +19,12 @@ namespace BetaAirlinesMVC
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                        "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                        "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                        "~/Content/css/Reset.css",
+                       "~/Content/bootstrap.css",
                        "~/Content/css/Main.css",
                        "~/Content/css/FontAwesome5all.css"));
 
