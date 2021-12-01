@@ -1,16 +1,15 @@
 ﻿@model BetaAirlinesMVC.Models.UserRole
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "User Role Details";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
 
-<div>
-    <h4>UserRole</h4>
-    <hr />
-    <dl class="dl-horizontal">
+    <div class="text-left">
+        <hr />
         <dt>
             @Html.DisplayNameFor(model => model.Role)
         </dt>
@@ -35,9 +34,16 @@
             @Html.DisplayFor(model => model.Active)
         </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <div class="form-group">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default linkDark" })
+        }
+    </div>
+    <div class="backLink">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</section>

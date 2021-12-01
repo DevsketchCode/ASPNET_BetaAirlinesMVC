@@ -9,7 +9,7 @@
     <h2>@ViewBag.Title</h2>
 
 
-    @using (Html.BeginForm("Create", "Airports", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class="form-airports"}))
+    @using (Html.BeginForm("Create", "Airports", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class="forms"}))
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
@@ -44,7 +44,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9 formInputDiv">
-                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownList("StateList", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9 formInputDiv">
-                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownList("CountryList", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -60,7 +60,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9 formInputDiv">
-                    @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-control", Value = "1"} })
+                    @Html.DropDownListFor(model => model.Active, new[] { new SelectListItem { Text = "True (1)", Value = "1" }, new SelectListItem { Text = "False (0)", Value = "0" } }, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
                 </div>
             </div>

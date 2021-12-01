@@ -1,75 +1,83 @@
 ﻿@model BetaAirlinesMVC.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "User Details";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserRole.Role)
-        </dt>
+    <div class="text-left">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserRole.Role)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Username)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+            <dd>
+                @Html.Raw("\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022")
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RegisteredDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RegisteredDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisteredDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UserRole.Role)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.RegisteredDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UserRole.Role)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <div class="form-group">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default linkDark" })
+        }
+    </div>
+    <div class="backLink">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</section>

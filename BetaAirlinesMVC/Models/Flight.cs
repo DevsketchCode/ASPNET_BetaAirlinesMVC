@@ -12,6 +12,7 @@ namespace BetaAirlinesMVC.Models
         [Key]
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime DepartureDate { get; set; }
 
         [ForeignKey("DepartureAirport")]
@@ -19,11 +20,9 @@ namespace BetaAirlinesMVC.Models
         public virtual Airport DepartureAirport { get; set; }
 
 
-
         [ForeignKey("ArrivalAirport")]
         public int ArrivalAirportId { get; set; }
         public virtual Airport ArrivalAirport { get; set; }
-
 
         public int FlightLengthInMinutes { get; set; }
 

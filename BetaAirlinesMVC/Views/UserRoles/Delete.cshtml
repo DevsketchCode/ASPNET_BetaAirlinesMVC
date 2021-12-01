@@ -1,49 +1,52 @@
 ﻿@model BetaAirlinesMVC.Models.UserRole
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete User Role";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>UserRole</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
+    <h4>Are you sure you want to delete this?</h4>
+    <div class="text-left">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Role)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Role)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
 
-    </dl>
+        </dl>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <div class="form-group form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        }
+        <div class="backLink">
             @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-</div>
+</section>

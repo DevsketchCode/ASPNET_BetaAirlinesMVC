@@ -28,8 +28,8 @@ namespace BetaAirlinesMVC
                        "~/Content/css/Main.css",
                        "~/Content/css/FontAwesome5all.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/slideshow").Include(
-                       "~/Scripts/js/Slideshow.js"));
+            bundles.Add(new ScriptBundle("~/bundles/myScripts").Include(
+                       "~/Scripts/js/Utilities.js"));
         }
     }
 }

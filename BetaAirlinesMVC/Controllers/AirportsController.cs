@@ -38,6 +38,13 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Airports/Create
         public ActionResult Create()
         {
+            var states = SelectListHelper.GetStateList();
+            SelectList stateList = new SelectList(states, "Value", "Text");
+            ViewBag.StateList = stateList;
+
+            var countries = SelectListHelper.GetCountryList();
+            SelectList countryList = new SelectList(countries, "Text", "Value");
+            ViewBag.CountryList = countryList;
             return View();
         }
 

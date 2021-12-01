@@ -58,7 +58,9 @@ namespace BetaAirlinesMVC.Controllers
         {
             //ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role");
             // Name the item in the viewbag whatever you'd like. ViewBag.[CustomName]
-            ViewBag.UserRole = db.UserRoles.ToList();
+            var userroleslist = db.UserRoles.ToList();
+            SelectList list = new SelectList(userroleslist, "Id", "Role");
+            ViewBag.UserRoleList = list;
             return View();
         }
 

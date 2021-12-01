@@ -22,6 +22,8 @@ namespace BetaAirlinesMVC.Models
 
         public String Password { get; set; }
 
+        [Required(ErrorMessage = "Enter the Registration date.")]
+        [DataType(DataType.Date)]
         public DateTime RegisteredDate { get; set; }
 
         public int Active { get; set; }

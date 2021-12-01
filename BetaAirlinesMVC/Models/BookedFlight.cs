@@ -11,6 +11,7 @@ namespace BetaAirlinesMVC.Models
         [Key]
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime DateBooked { get; set; }
 
         public int Active { get; set; }
