@@ -35,5 +35,7 @@ namespace BetaAirlinesMVC.Models
                 .HasForeignKey(m => m.ArrivalAirportId)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<BetaAirlinesMVC.ViewModel.BookAFlightViewModel> BookAFlightViewModels { get; set; }
     }
 }

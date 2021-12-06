@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
+using BetaAirlinesMVC.ViewModel;
 
 namespace BetaAirlinesMVC.Controllers
 {
@@ -131,6 +132,56 @@ namespace BetaAirlinesMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        // Book A Flight
+        [HttpGet]
+        public ActionResult BookAFlight(int? Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // Get all the list of airports
+            ViewBag.AirportsList = db.Airports.ToList();
+
+            // Get the list of predetermined flights for the user to choose from
+            ViewBag.FlightsList = db.Flights.ToList();
+
+            return View();
+        }
+
+        // Post request handler for when they submit the form from the view
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookAFlight([Bind(Include = "DateBooked, UserId, FlightId")] BookAFlightViewModel bfvm)
+        {
+
+            if (bfvm != null)
+            {
+                // Get the userId from the form
+                int UserId = db.Users.Where(e => e.Id == bfvm.UserId).Select(e => e.Id).SingleOrDefault();
+
+                // Get the flight where the flight ID matches the flight that was selected on the form
+                int FlightId = db.Flights.Where(e => e.Id == bfvm.FlightId).Select(e => e.Id).SingleOrDefault();
+
+                BookedFlight bookedFlight = new BookedFlight();
+                bookedFlight.UserId = UserId;
+                bookedFlight.FlightId = FlightId;
+                bookedFlight.DateBooked = Convert.ToDateTime(bfvm.DateBooked);
+                bookedFlight.Active = 1; // Set Booked Flight to Active as it just being created
+
+                db.BookedFlights.Add(bookedFlight);
+                db.SaveChanges();
+
+                // Send it back to the index page if it has been successfully submitted
+                return RedirectToAction("Index");
+            }
+
+            // The form submission was unsuccessful
+            return View(bfvm);
         }
     }
 }

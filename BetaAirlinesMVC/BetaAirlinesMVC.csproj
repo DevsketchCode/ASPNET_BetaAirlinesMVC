@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AirportsController.cs" />
     <Compile Include="Controllers\BookedFlightsController.cs" />
     <Compile Include="Controllers\FlightsController.cs" />
@@ -158,7 +159,7 @@
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\SelectListHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\FlightViewModel.cs" />
+    <Compile Include="ViewModel\BookAFlightViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BetaAirlinesDb.mdf" />
@@ -280,6 +281,8 @@
     <Content Include="Views\Flights\Details.cshtml" />
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Index.cshtml" />
+    <Content Include="Views\Flights\BookAFlight.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -300,6 +303,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
