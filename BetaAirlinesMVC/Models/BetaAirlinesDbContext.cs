@@ -36,6 +36,5 @@ namespace BetaAirlinesMVC.Models
                 .WillCascadeOnDelete(false);
         }
 
-        public System.Data.Entity.DbSet<BetaAirlinesMVC.ViewModel.BookAFlightViewModel> BookAFlightViewModels { get; set; }
     }
 }

@@ -12,20 +12,27 @@ namespace BetaAirlinesMVC.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Please Select a Departure Date")]
+        [Display(Name ="Departure Date")]
+        [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DepartureDate { get; set; }
 
-        [Required(ErrorMessage = "A departure airport was not selected")]
+        [Display(Name = "Departure Airport")]
+        [Required]
         [ForeignKey("DepartureAirport")]
         public int DepartureAirportId { get; set; }
+        
         public virtual Airport DepartureAirport { get; set; }
 
-        [Required(ErrorMessage = "An arrival airport was not selected")]
+        [Required]
         [ForeignKey("ArrivalAirport")]
+        [Display(Name = "Arrival Airport")]
         public int ArrivalAirportId { get; set; }
+
         public virtual Airport ArrivalAirport { get; set; }
 
+        [Display(Name ="Duration")]
         [Range(0,5000)]
         public int FlightLengthInMinutes { get; set; }
 

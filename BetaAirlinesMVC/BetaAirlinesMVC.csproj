@@ -142,14 +142,6 @@
     <Compile Include="Migrations\202111280412482_InitialCreate.Designer.cs">
       <DependentUpon>202111280412482_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112010348536_UserRoleActiveBool.cs" />
-    <Compile Include="Migrations\202112010348536_UserRoleActiveBool.Designer.cs">
-      <DependentUpon>202112010348536_UserRoleActiveBool.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112010352094_undoUserRoleBool.cs" />
-    <Compile Include="Migrations\202112010352094_undoUserRoleBool.Designer.cs">
-      <DependentUpon>202112010352094_undoUserRoleBool.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\BetaAirlinesDbContext.cs" />
@@ -157,8 +149,9 @@
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
-    <Compile Include="Models\SelectListHelper.cs" />
+    <Compile Include="Utilities\SelectListHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\TimeConversion.cs" />
     <Compile Include="ViewModel\BookAFlightViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -292,12 +285,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202111280412482_InitialCreate.resx">
       <DependentUpon>202111280412482_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112010348536_UserRoleActiveBool.resx">
-      <DependentUpon>202112010348536_UserRoleActiveBool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112010352094_undoUserRoleBool.resx">
-      <DependentUpon>202112010352094_undoUserRoleBool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

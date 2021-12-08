@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
-
+using BetaAirlinesMVC.ViewModel;
 
 namespace BetaAirlinesMVC.Controllers
 {
@@ -18,7 +18,7 @@ namespace BetaAirlinesMVC.Controllers
         // GET: BookedFlights
         public ActionResult Index()
         {
-            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.User);
+            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.LoggedInUser);
             return View(bookedFlights.ToList());
         }
 
@@ -50,10 +50,17 @@ namespace BetaAirlinesMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateBooked,Active,UserId,FlightId")] BookedFlight bookedFlight)
+        public ActionResult Create(int u, int fid, [Bind(Include = "Id,DateBooked,Active,UserId,FlightId")] BookedFlight bookedFlight)
         {
             if (ModelState.IsValid)
             {
+                if(fid != null)
+                {
+                    bookedFlight.DateBooked = DateTime.Now;
+                    bookedFlight.FlightId = fid;
+                    bookedFlight.UserId = u;
+                    bookedFlight.Active = 1; // Default is active
+                }
                 db.BookedFlights.Add(bookedFlight);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,6 +70,7 @@ namespace BetaAirlinesMVC.Controllers
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", bookedFlight.UserId);
             return View(bookedFlight);
         }
+
 
         // GET: BookedFlights/Edit/5
         public ActionResult Edit(int? id)

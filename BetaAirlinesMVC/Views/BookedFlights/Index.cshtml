@@ -13,10 +13,10 @@
     <table>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Flight.Id)
+                User Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.FirstName)
+                @Html.DisplayNameFor(model => model.FlightId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateBooked)
@@ -31,10 +31,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Flight.Id)
+                    @{ 
+                        var fullName = item.LoggedInUser.FirstName + " " + item.LoggedInUser.LastName;
+                    }
+                    @Html.DisplayFor(modelItem => fullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                    @Html.DisplayFor(modelItem => item.FlightId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateBooked)

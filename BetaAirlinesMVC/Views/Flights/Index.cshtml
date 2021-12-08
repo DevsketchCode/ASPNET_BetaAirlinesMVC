@@ -13,10 +13,10 @@
     <table>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ArrivalAirport.Name)
+                Departure Airport
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartureAirport.Name)
+                Arrival Airport
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DepartureDate)
@@ -34,10 +34,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ArrivalAirport.Name)
+                    @Html.DisplayFor(modelItem => item.DepartureAirport.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DepartureAirport.Name)
+                    @Html.DisplayFor(modelItem => item.ArrivalAirport.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DepartureDate)

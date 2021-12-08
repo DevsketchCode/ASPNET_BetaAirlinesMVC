@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
 using BetaAirlinesMVC.ViewModel;
@@ -137,51 +136,72 @@ namespace BetaAirlinesMVC.Controllers
 
         // Book A Flight
         [HttpGet]
-        public ActionResult BookAFlight(int? Id)
+        public ActionResult BookAFlight(int? d, int? a)
         {
-            if (Id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
             // Get all the list of airports
-            ViewBag.AirportsList = db.Airports.ToList();
+            ViewBag.d = new SelectList(db.Airports, "Id", "Name"); // Departure
+            ViewBag.a = new SelectList(db.Airports, "Id", "Name"); // Arrival
 
             // Get the list of predetermined flights for the user to choose from
-            ViewBag.FlightsList = db.Flights.ToList();
+            //var flightsList = db.Flights.ToList();
+            //ViewBag.Flights = db.Flights.Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport);
+            Response.Write("D: " + d + "A: " + a);
+            // Get the list of all flights
+            BookAFlightViewModel model = new BookAFlightViewModel();
 
-            return View();
+            if (d != null && a != null)
+            {
+                Response.Write("Success Both");
+                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == d && x.ArrivalAirportId == a));
+            }
+            else if ((d != null && a == null) || (d == null && a != null))
+            {
+                Response.Write("Success D");
+                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == d || x.ArrivalAirportId == a));
+            }
+            else
+            {
+                Response.Write("Fail");
+                model.FlightList = db.Flights.ToList();
+            }
+
+
+            return View(model);
         }
 
-        // Post request handler for when they submit the form from the view
+/*        // Post request handler for when they submit the form from the view
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BookAFlight([Bind(Include = "DateBooked, UserId, FlightId")] BookAFlightViewModel bfvm)
+        public ActionResult BookAFlight(int? u, int fid) // UserId, FlightId
         {
 
-            if (bfvm != null)
+            if (fid != null)
             {
                 // Get the userId from the form
-                int UserId = db.Users.Where(e => e.Id == bfvm.UserId).Select(e => e.Id).SingleOrDefault();
+                int UserId = db.Users.Where(e => e.Id == u).Select(e => e.Id).SingleOrDefault();
 
                 // Get the flight where the flight ID matches the flight that was selected on the form
-                int FlightId = db.Flights.Where(e => e.Id == bfvm.FlightId).Select(e => e.Id).SingleOrDefault();
+                int FlightId = db.Flights.Where(e => e.Id == fid).Select(e => e.Id).SingleOrDefault();
 
-                BookedFlight bookedFlight = new BookedFlight();
-                bookedFlight.UserId = UserId;
-                bookedFlight.FlightId = FlightId;
-                bookedFlight.DateBooked = Convert.ToDateTime(bfvm.DateBooked);
-                bookedFlight.Active = 1; // Set Booked Flight to Active as it just being created
+                // Get Date Booked
+
+                BookedFlight bookedFlight = new BookedFlight
+                {
+                    UserId = UserId,
+                    FlightId = FlightId,
+                    DateBooked = DateTime.Now,
+                    Active = 1 // Set Booked Flight to Active as it just being created
+                };
 
                 db.BookedFlights.Add(bookedFlight);
                 db.SaveChanges();
 
                 // Send it back to the index page if it has been successfully submitted
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "BookedFlights");
             }
 
             // The form submission was unsuccessful
-            return View(bfvm);
-        }
+            return View();
+        }*/
     }
 }

@@ -18,7 +18,7 @@
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3"})
                 <div class="col-md-9 formInputDiv">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -44,7 +44,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9 formInputDiv">
-                    @Html.DropDownList("StateList", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.State, new SelectList(ViewBag.StateList, "Text", "Value"), htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9 formInputDiv">
-                    @Html.DropDownList("CountryList", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Country, new SelectList(ViewBag.CountryList, "Text", "Value"), htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                 </div>
             </div>

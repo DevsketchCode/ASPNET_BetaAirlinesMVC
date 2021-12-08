@@ -9,7 +9,7 @@
     <h2>@ViewBag.Title</h2>
 
 
-    @using (Html.BeginForm("Edit", "Airports", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "forms" }))
+    @using (Html.BeginForm("Edit", "Flights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "forms" }))
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">

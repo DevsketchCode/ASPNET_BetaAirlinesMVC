@@ -39,7 +39,7 @@ namespace BetaAirlinesMVC.Controllers
         public ActionResult Create()
         {
             var states = SelectListHelper.GetStateList();
-            SelectList stateList = new SelectList(states, "Value", "Text");
+            SelectList stateList = new SelectList(states, "Text", "Value");
             ViewBag.StateList = stateList;
 
             var countries = SelectListHelper.GetCountryList();

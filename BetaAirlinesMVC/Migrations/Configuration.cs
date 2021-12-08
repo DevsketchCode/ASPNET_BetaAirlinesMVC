@@ -1,10 +1,3 @@
-// To create this migration
-// NuGet Package Manager, type Enable-Migrations
-
-// If make a change to the model and need to update the database
-// NuGet Package Manager, Package Manager Console, Add-Migration, then provide Name for the change (is attached to end of filename)
-// Then apply it by typing Update-Database
-
 namespace BetaAirlinesMVC.Migrations
 {
     using System;
@@ -17,7 +10,6 @@ namespace BetaAirlinesMVC.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "BetaAirlinesMVC.Models.BetaAirlinesDbContext";
         }
 
         protected override void Seed(BetaAirlinesMVC.Models.BetaAirlinesDbContext context)

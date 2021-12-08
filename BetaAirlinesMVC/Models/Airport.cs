@@ -12,21 +12,27 @@ namespace BetaAirlinesMVC.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(80)]
         public String Name { get; set; }
 
+        [Required]
         [MaxLength(6)]
         public String ICAO { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public String City { get; set; }
-        
+
+        [Required]
         [MaxLength(50)]
         public String State { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public String Country { get; set; }
 
+        [DefaultValue(1)]
         public int Active { get; set; }
 
         public virtual List<Flight> DepartingAirports { get; set; }

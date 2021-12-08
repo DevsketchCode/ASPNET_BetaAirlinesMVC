@@ -1,40 +1,77 @@
-﻿@model IEnumerable<BetaAirlinesMVC.ViewModel.BookAFlightViewModel>
+﻿@model BetaAirlinesMVC.ViewModel.BookAFlightViewModel
+@using BetaAirlinesMVC.Utilities;
 
 @{
-    ViewBag.Title = "BookAFlight";
+    ViewBag.Title = "Book A Flight";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>BookAFlight</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
+    <p>
+        @Html.ActionLink("Book A Flight", "Create")
+    </p>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateBooked)
-        </th>
-        <th></th>
-    </tr>
+    @using (Html.BeginForm("BookAFlight", "Flights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
+    {
+        @*@Html.AntiForgeryToken()*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateBooked)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FlightId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FlightId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FlightId })
-        </td>
-    </tr>
-}
+        @Html.DropDownList("d", "-- Departure Flight --")
+        @Html.DropDownList("a", "-- Arrival Flight --")
+        <input type="submit" value="Search" />
+    }
+    <table>
+        <tr class="row">
+            <th>
+                Departure Airport
+            </th>
+            <th>
+                Arrival Airport
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightLengthInMinutes)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model.FlightList)
+        {
+            <tr class="row">
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureAirport.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalAirport.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureDate)
+                </td>
+                <td>
+                    @{
+                        TimeConversion timeConversion = new TimeConversion();
+                        string duration = timeConversion.GetDuration(item.FlightLengthInMinutes);
+                    }
+                    @Html.DisplayFor(modelItem => duration)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Create", "BookedFlights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" value="2" name="u" />
+
+                        <input type="hidden" value="@item.Id" name="fid" />
+                        <input type="submit" value="Book" class="btn btn-primary" />
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</section>

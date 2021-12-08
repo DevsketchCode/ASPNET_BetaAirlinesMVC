@@ -14,12 +14,14 @@ namespace BetaAirlinesMVC.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(30)]
         public String Role { get; set; }
 
         [MaxLength(150)]
         public String Description { get; set; }
 
+        [DefaultValue(1)]
         public int Active { get; set; }
     }
 }
