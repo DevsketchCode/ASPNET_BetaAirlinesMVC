@@ -136,35 +136,27 @@ namespace BetaAirlinesMVC.Controllers
 
         // Book A Flight
         [HttpGet]
-        public ActionResult BookAFlight(int? d, int? a)
+        public ActionResult BookAFlight(int? dpt, int? arr)
         {
             // Get all the list of airports
-            ViewBag.d = new SelectList(db.Airports, "Id", "Name"); // Departure
-            ViewBag.a = new SelectList(db.Airports, "Id", "Name"); // Arrival
+            ViewBag.dpt = new SelectList(db.Airports, "Id", "Name"); // Departure
+            ViewBag.arr = new SelectList(db.Airports, "Id", "Name"); // Arrival
 
             // Get the list of predetermined flights for the user to choose from
-            //var flightsList = db.Flights.ToList();
-            //ViewBag.Flights = db.Flights.Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport);
-            Response.Write("D: " + d + "A: " + a);
-            // Get the list of all flights
             BookAFlightViewModel model = new BookAFlightViewModel();
 
-            if (d != null && a != null)
+            if (dpt != null && arr != null)
             {
-                Response.Write("Success Both");
-                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == d && x.ArrivalAirportId == a));
+                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt && x.ArrivalAirportId == arr));
             }
-            else if ((d != null && a == null) || (d == null && a != null))
+            else if ((dpt != null && arr == null) || (dpt == null && arr != null))
             {
-                Response.Write("Success D");
-                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == d || x.ArrivalAirportId == a));
+                model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt || x.ArrivalAirportId == arr));
             }
             else
             {
-                Response.Write("Fail");
                 model.FlightList = db.Flights.ToList();
             }
-
 
             return View(model);
         }

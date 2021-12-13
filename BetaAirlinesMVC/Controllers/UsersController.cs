@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
+using BetaAirlinesMVC.ViewModel;
 
 namespace BetaAirlinesMVC.Controllers
 {
@@ -56,12 +57,18 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            //ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role");
+
+            UserCreateViewModel model = new UserCreateViewModel();
+
+            // set default values for the form
+            model.RegisteredDate = DateTime.Today;
+            model.Active = 1;
+            
             // Name the item in the viewbag whatever you'd like. ViewBag.[CustomName]
             var userroleslist = db.UserRoles.ToList();
             SelectList list = new SelectList(userroleslist, "Id", "Role");
             ViewBag.UserRoleList = list;
-            return View();
+            return View(model);
         }
 
         // POST: Users/Create
@@ -73,6 +80,7 @@ namespace BetaAirlinesMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -148,6 +156,33 @@ namespace BetaAirlinesMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: Users/Edit/5
+        public ActionResult Login(string userName, string password)
+        {
+            UserCreateViewModel model = new UserCreateViewModel();
+
+            if (userName == null || password == null)
+            {
+                ViewBag.Message = "Please enter the username and password";
+                return View();
+            }
+            User user = db.Users.Find(userName);
+            if (user == null)
+            {
+                ViewBag.Message = "Invalid Username or Password";
+                return View();
+            }
+            ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role", user.UserRoleID);
+            // DELETE THIS!
+            // FIX THIS LOGIN AND SET AS SESSION AS LOGGED IN
+            ViewBag.Password = user.Password;
+            //TODO: Verify that username is unique
+            // Retrieve PW Hash using -- bool verified = BCrypt.Net.BCrypt.Verify("Pa$$w0rd", passwordHash);
+            // from website: https://jasonwatmore.com/post/2021/05/27/net-5-hash-and-verify-passwords-with-bcrypt
+
+            return View(user);
         }
     }
 }

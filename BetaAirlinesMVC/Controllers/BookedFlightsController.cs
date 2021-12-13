@@ -50,7 +50,7 @@ namespace BetaAirlinesMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int u, int fid, [Bind(Include = "Id,DateBooked,Active,UserId,FlightId")] BookedFlight bookedFlight)
+        public ActionResult Create(int usr, int fid, [Bind(Include = "Id,DateBooked,Active,UserId,FlightId")] BookedFlight bookedFlight)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace BetaAirlinesMVC.Controllers
                 {
                     bookedFlight.DateBooked = DateTime.Now;
                     bookedFlight.FlightId = fid;
-                    bookedFlight.UserId = u;
+                    bookedFlight.UserId = usr;
                     bookedFlight.Active = 1; // Default is active
                 }
                 db.BookedFlights.Add(bookedFlight);

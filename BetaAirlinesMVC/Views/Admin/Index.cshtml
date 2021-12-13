@@ -6,12 +6,15 @@
 
 <section class="content flexcolumn">
     <h2>@ViewBag.Title</h2>
-    <ul>
+    <ul class="adm">
         <li>@Html.ActionLink("Users", "Index", "Users", null, new { title = "Users" })</li>
         <li>@Html.ActionLink("User Roles", "Index", "UserRoles", null, new { title = "User Roles" })</li>
+        <hr />
         <li>@Html.ActionLink("Airports", "Index", "Airports", null, new { title = "Airports" })</li>
         <li>@Html.ActionLink("Flights", "Index", "Flights", null, new { title = "Flights" })</li>
         <li>@Html.ActionLink("Booked Flights", "Index", "BookedFlights", null, new { title = "Booked Flights" })</li>
+        <hr />
+        <li>@Html.ActionLink("Book a Flight", "BookAFlight", "Flights", null, new { title = "Book a Flight" })</li>
     </ul>
 </section>
 

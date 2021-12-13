@@ -8,16 +8,11 @@
 
 <section class="content flexcolumn">
     <h2>@ViewBag.Title</h2>
-    <p>
-        @Html.ActionLink("Book A Flight", "Create")
-    </p>
 
     @using (Html.BeginForm("BookAFlight", "Flights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
     {
-        @*@Html.AntiForgeryToken()*@
-
-        @Html.DropDownList("d", "-- Departure Flight --")
-        @Html.DropDownList("a", "-- Arrival Flight --")
+        @Html.DropDownList("dpt", "-- Departure Flight --")
+        @Html.DropDownList("arr", "-- Arrival Flight --")
         <input type="submit" value="Search" />
     }
     <table>
@@ -60,13 +55,10 @@
                     @using (Html.BeginForm("Create", "BookedFlights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="hidden" value="2" name="u" />
+                        <input type="hidden" value="2" name="usr" />
 
                         <input type="hidden" value="@item.Id" name="fid" />
-                        <input type="submit" value="Book" class="btn btn-primary" />
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                        <input type="submit" value="Book Flight" class="btn btn-primary" />
                     }
                 </td>
             </tr>
