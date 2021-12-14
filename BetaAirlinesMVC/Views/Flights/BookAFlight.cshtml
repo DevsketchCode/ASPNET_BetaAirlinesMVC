@@ -55,7 +55,7 @@
                     @using (Html.BeginForm("Create", "BookedFlights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="hidden" value="2" name="usr" />
+                        <input type="hidden" value="@ViewBag.UserID" name="usr" />
 
                         <input type="hidden" value="@item.Id" name="fid" />
                         <input type="submit" value="Book Flight" class="btn btn-primary" />
@@ -65,5 +65,9 @@
         }
 
     </table>
+    @ViewBag.Test
+    <div class="backLink">
+        @Html.ActionLink("Logout", "Logout", "Users")
+    </div>
 
 </section>

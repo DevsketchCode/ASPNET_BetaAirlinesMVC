@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
 using BetaAirlinesMVC.ViewModel;
+using BetaAirlinesMVC.Utilities;
 
 namespace BetaAirlinesMVC.Controllers
 {
@@ -80,13 +81,22 @@ namespace BetaAirlinesMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role", user.UserRoleID);
 
-            ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role", user.UserRoleID);
+                DataValidation dataValidation = new DataValidation();
+                if(dataValidation.UsernameAlreadyExists(user.Username))
+                {
+                    ViewBag.Message = "Username already exists.";
+                    return View();
+                } 
+                else
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             return View(user);
         }
 
@@ -115,6 +125,7 @@ namespace BetaAirlinesMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO: hash new password after edit
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -158,31 +169,82 @@ namespace BetaAirlinesMVC.Controllers
             base.Dispose(disposing);
         }
 
-        // GET: Users/Edit/5
+        // GET: Users/Login
+        [HttpGet]
+        public ActionResult Login()
+        {
+            // If already logged in, then log out first. 
+            if(Session["id"] != null || Session["pw"] != null) {
+                Logout();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string userName, string password)
         {
-            UserCreateViewModel model = new UserCreateViewModel();
+            UserLoginViewModel model = new UserLoginViewModel();
 
             if (userName == null || password == null)
             {
                 ViewBag.Message = "Please enter the username and password";
                 return View();
             }
-            User user = db.Users.Find(userName);
+
+            // Get user loging information from the database
+            User user = db.Users.Where(x => x.Username == userName).SingleOrDefault();
             if (user == null)
             {
                 ViewBag.Message = "Invalid Username or Password";
                 return View();
             }
-            ViewBag.UserRoleID = new SelectList(db.UserRoles, "Id", "Role", user.UserRoleID);
+            UserRole userRole = db.UserRoles.Where(x => x.Id == user.UserRoleID).SingleOrDefault();
+            
             // DELETE THIS!
             // FIX THIS LOGIN AND SET AS SESSION AS LOGGED IN
-            ViewBag.Password = user.Password;
-            //TODO: Verify that username is unique
-            // Retrieve PW Hash using -- bool verified = BCrypt.Net.BCrypt.Verify("Pa$$w0rd", passwordHash);
-            // from website: https://jasonwatmore.com/post/2021/05/27/net-5-hash-and-verify-passwords-with-bcrypt
 
-            return View(user);
+            DataValidation authenticate = new DataValidation();
+            bool isVerified = authenticate.IsAuthenticated(user.Id, password);
+            if (isVerified)
+            {
+                this.Session["id"] = user.Id;
+                this.Session["pw"] = user.Password;
+                this.Session["role"] = userRole.Role;
+                if(userRole.Role == "Admin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("BookAFlight", "Flights");
+                }
+                
+            } else
+            {
+                ViewBag.Message = "Invalid Username or Password";
+                this.Session.Clear();
+            }
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["id"] = null;
+            Session["pw"] = null;
+            Session["role"] = null;
+            Session.Clear();
+            Session.RemoveAll();
+            Session.Abandon();
+            Response.AddHeader("Cache-control", "no-store, must-revalidate, private, no-cache");
+            Response.AddHeader("Pragma", "no-cache");
+            Response.AddHeader("Expires", "0");
+            Response.AppendToLog("window.location.reload();");
+
+            return RedirectToAction("Login", "Users");
         }
     }
 }

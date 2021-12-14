@@ -138,9 +138,12 @@ namespace BetaAirlinesMVC.Controllers
         [HttpGet]
         public ActionResult BookAFlight(int? dpt, int? arr)
         {
+            VerifyLogin();
+
             // Get all the list of airports
             ViewBag.dpt = new SelectList(db.Airports, "Id", "Name"); // Departure
             ViewBag.arr = new SelectList(db.Airports, "Id", "Name"); // Arrival
+            ViewBag.UserID = Session["id"];
 
             // Get the list of predetermined flights for the user to choose from
             BookAFlightViewModel model = new BookAFlightViewModel();
@@ -161,39 +164,14 @@ namespace BetaAirlinesMVC.Controllers
             return View(model);
         }
 
-/*        // Post request handler for when they submit the form from the view
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult BookAFlight(int? u, int fid) // UserId, FlightId
+        public void VerifyLogin()
         {
-
-            if (fid != null)
+            if (Session == null || Session["id"] == null || Session["pw"] == null)
             {
-                // Get the userId from the form
-                int UserId = db.Users.Where(e => e.Id == u).Select(e => e.Id).SingleOrDefault();
-
-                // Get the flight where the flight ID matches the flight that was selected on the form
-                int FlightId = db.Flights.Where(e => e.Id == fid).Select(e => e.Id).SingleOrDefault();
-
-                // Get Date Booked
-
-                BookedFlight bookedFlight = new BookedFlight
-                {
-                    UserId = UserId,
-                    FlightId = FlightId,
-                    DateBooked = DateTime.Now,
-                    Active = 1 // Set Booked Flight to Active as it just being created
-                };
-
-                db.BookedFlights.Add(bookedFlight);
-                db.SaveChanges();
-
-                // Send it back to the index page if it has been successfully submitted
-                return RedirectToAction("Index", "BookedFlights");
+                //TODO: Get role to determine if should be shown or not.
+                //TODO: Validate password in case the password has changed mid session
+                RedirectToAction("Login", "Users");
             }
-
-            // The form submission was unsuccessful
-            return View();
-        }*/
+        }
     }
 }
