@@ -144,6 +144,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AirportsController.cs" />
     <Compile Include="Controllers\BookedFlightsController.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="Models\Airport.cs" />
     <Compile Include="Models\BetaAirlinesDbContext.cs" />
     <Compile Include="Models\BookedFlight.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\TimeConversion.cs" />
     <Compile Include="ViewModel\BookAFlightViewModel.cs" />
+    <Compile Include="ViewModel\MyFlightsViewModel.cs" />
     <Compile Include="ViewModel\UserCreateViewModel.cs" />
     <Compile Include="ViewModel\UserLoginViewModel.cs" />
   </ItemGroup>
@@ -277,7 +281,7 @@
     <Content Include="Views\BookedFlights\Delete.cshtml" />
     <Content Include="Views\BookedFlights\Details.cshtml" />
     <Content Include="Views\BookedFlights\Edit.cshtml" />
-    <Content Include="Views\BookedFlights\Index.cshtml" />
+    <Content Include="Views\BookedFlights\Admin.cshtml" />
     <Content Include="Views\UserRoles\Create.cshtml" />
     <Content Include="Views\UserRoles\Delete.cshtml" />
     <Content Include="Views\UserRoles\Details.cshtml" />
@@ -296,6 +300,14 @@
     <Content Include="Views\Flights\BookAFlight.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\BookedFlights\2Index.cshtml" />
+    <Content Include="Views\BookedFlights\Index.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Contact\Messages.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

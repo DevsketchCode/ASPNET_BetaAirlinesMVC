@@ -1,14 +1,12 @@
 ﻿using BetaAirlinesMVC.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
-using System.Data.Entity;
+using System.Web.Mvc;
 
 namespace BetaAirlinesMVC.Utilities
 {
-    public class DataValidation
+    public class DataValidation : Controller
     {
 
         private BetaAirlinesDbContext db = new BetaAirlinesDbContext();
@@ -30,8 +28,19 @@ namespace BetaAirlinesMVC.Utilities
                     isAuthenticated = true;
                 }
             }
-
             return isAuthenticated;
+        }
+
+        public bool PWMatch(int userId, string formPW)
+        {
+            bool match = false;
+            User user = db.Users.Find(userId);
+            if(user.Password == formPW)
+            {
+                match = true;
+            }
+
+            return match;
         }
 
         public bool UsernameAlreadyExists(string username)
@@ -45,6 +54,26 @@ namespace BetaAirlinesMVC.Utilities
             }
 
             return alreadyExists;
+        }
+    }
+
+    public class SessionCheck: ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+            if(session != null && session["id"] == null || session["pw"] == null)
+            {
+
+                //TODO: Get role to determine if should be shown or not.
+                //TODO: Validate password in case the password has changed mid session
+                filterContext.Result = new RedirectToRouteResult(
+                    new System.Web.Routing.RouteValueDictionary { 
+                    {"Controller", "Users"},
+                    { "Action", "Login"}
+                    });
+            }
         }
     }
 }

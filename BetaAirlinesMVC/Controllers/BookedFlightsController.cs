@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,18 +8,62 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BetaAirlinesMVC.Models;
+using BetaAirlinesMVC.Utilities;
 using BetaAirlinesMVC.ViewModel;
 
 namespace BetaAirlinesMVC.Controllers
 {
+
+    // Uses BetaAirlinesMVC.Utilities to run a SessionCheck
+    // Having it here runs the session check in all actions on this controller
+    // Else place it only on the actions that you want it on
+    [SessionCheck]
     public class BookedFlightsController : Controller
     {
         private BetaAirlinesDbContext db = new BetaAirlinesDbContext();
 
-        // GET: BookedFlights
+        [HttpGet]
         public ActionResult Index()
         {
-            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.LoggedInUser);
+            List<MyFlightsViewModel> yourFlights = new List<MyFlightsViewModel>();
+
+            try { 
+            int loggedInUser = (int)Session["id"];
+            foreach (var flight in db.BookedFlights.Where(x => x.UserId == loggedInUser))
+                {
+                    // Get flight data
+                    Flight flights = db.Flights.Where(x => x.Id == flight.FlightId).SingleOrDefault();
+                    User theUser = db.Users.Where(u => u.Id == flight.UserId).SingleOrDefault();
+                    Airport depAirport = db.Airports.Where(a => a.Id == flights.DepartureAirportId).SingleOrDefault();
+                    Airport arrAirport = db.Airports.Where(a => a.Id == flights.ArrivalAirportId).SingleOrDefault();
+
+                    // Create my flight object
+                    MyFlightsViewModel mfvm = new MyFlightsViewModel();
+                    mfvm.Id = flight.Id;
+                    mfvm.UserId = flight.UserId;
+                    mfvm.FirstName = theUser.FirstName;
+                    mfvm.LastName = theUser.LastName;
+                    mfvm.DateBooked = flight.DateBooked;
+                    mfvm.DepartureAirport = depAirport.Name;
+                    mfvm.ArrivalAirport = arrAirport.Name;
+                    mfvm.ActiveBookedFlight = flight.Active;
+
+
+                    yourFlights.Add(mfvm);
+                }
+            } catch (Exception ex)
+            {
+                yourFlights = null;
+                ViewBag.AlertMessage = "You have no booked flights.";
+            }
+
+            return View(yourFlights);
+        }
+
+        // GET: BookedFlights
+        public ActionResult Admin()
+        {
+            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.BookedUserId);
             return View(bookedFlights.ToList());
         }
 

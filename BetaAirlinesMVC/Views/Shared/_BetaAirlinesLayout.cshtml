@@ -15,8 +15,23 @@
                 <ul class="level1" tabindex="0">
                     <li>@Html.ActionLink("Home", "Index", "Home", null, new { title = "The home page of the website", @class = "level1" })</li>
                     <li>@Html.ActionLink("Plan a Trip", "Plan", "Home", null, new { title = "Plan a Trip" })</li>
-                    <li>@Html.ActionLink("Book a Flight", "Index", "Admin", null, new { title = "Book a Flight" })</li>
+                    @if (Session != null && (string)Session["role"] == "Admin")
+                    {
+                        <li>@Html.ActionLink("Admin Page", "Index", "Admin", null, new { title = "Admin" })</li>
+                    }
+                    else if (Session != null && (string)Session["role"] == "Manager")
+                    {
+                        <li>@Html.ActionLink("Management Page", "Index", "Manage", null, new { title = "Admin" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Book a Flight", "BookAFlight", "Flights", null, new { title = "Book a Flight" })</li>
+                    }
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home", null, new { title = "A contact form to ask us a question or provide feedback." })</li>
+                    @if (Session != null && Session["id"] != null && Session["pw"] != null)
+                    {
+                        <li>@Html.ActionLink("Logout", "Login", "Users", null, new { title = "Logout" })</li>
+                    }
                 </ul>
             </div><div style="clear:left;"></div>
         </nav>

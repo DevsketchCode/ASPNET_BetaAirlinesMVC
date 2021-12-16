@@ -24,9 +24,9 @@ namespace BetaAirlinesMVC.Models
         // supply a virtual object to the class to link the foreign key. 
         // Datatype of the foreign key object goes to, then whatever you name the virtual object, name the ForeignKey the same exactly.
         [Required]
-        [ForeignKey("LoggedInUser")]
+        [ForeignKey("BookedUserId")]
         public int UserId { get; set; }
-        public virtual User LoggedInUser { get; set; }
+        public virtual User BookedUserId { get; set; }
 
         [Required]
         [ForeignKey("Flight")]

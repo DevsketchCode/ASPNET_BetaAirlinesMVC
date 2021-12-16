@@ -12,11 +12,18 @@ using BetaAirlinesMVC.Utilities;
 
 namespace BetaAirlinesMVC.Controllers
 {
+
+    // Do NOT have Session Check on entire controller to avoid infinite loop of Login Action    
     public class UsersController : Controller
     {
         private BetaAirlinesDbContext db = new BetaAirlinesDbContext();
 
+
         // GET: Users
+        // Uses BetaAirlinesMVC.Utilities to run a SessionCheck
+        // Having it here runs the session check in all actions on this controller
+        // Else place it only on the actions that you want it on
+        [SessionCheck]
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.UserRole);
@@ -24,6 +31,7 @@ namespace BetaAirlinesMVC.Controllers
         }
 
         // GET: Users/Details/5
+        [SessionCheck]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -56,6 +64,7 @@ namespace BetaAirlinesMVC.Controllers
         }
 
         // GET: Users/Create
+        [SessionCheck]
         public ActionResult Create()
         {
 
@@ -77,6 +86,7 @@ namespace BetaAirlinesMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionCheck]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Username,Password,RegisteredDate,Active,UserRoleID")] User user)
         {
             if (ModelState.IsValid)
@@ -101,6 +111,8 @@ namespace BetaAirlinesMVC.Controllers
         }
 
         // GET: Users/Edit/5
+        [HttpGet]
+        [SessionCheck]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,11 +133,18 @@ namespace BetaAirlinesMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionCheck]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Username,Password,RegisteredDate,Active,UserRoleID")] User user)
         {
+            DataValidation dv = new DataValidation();
+
             if (ModelState.IsValid)
             {
-                //TODO: hash new password after edit
+                if(!dv.PWMatch(user.Id, user.Password))
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                }
+
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -135,6 +154,7 @@ namespace BetaAirlinesMVC.Controllers
         }
 
         // GET: Users/Delete/5
+        [SessionCheck]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -152,6 +172,7 @@ namespace BetaAirlinesMVC.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [SessionCheck]
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
@@ -201,6 +222,7 @@ namespace BetaAirlinesMVC.Controllers
             }
             UserRole userRole = db.UserRoles.Where(x => x.Id == user.UserRoleID).SingleOrDefault();
             
+            
             // DELETE THIS!
             // FIX THIS LOGIN AND SET AS SESSION AS LOGGED IN
 
@@ -214,6 +236,10 @@ namespace BetaAirlinesMVC.Controllers
                 if(userRole.Role == "Admin")
                 {
                     return RedirectToAction("Index", "Admin");
+                }
+                else if(userRole.Role == "Manager")
+                {
+                    return RedirectToAction("Index", "Manage");
                 }
                 else
                 {

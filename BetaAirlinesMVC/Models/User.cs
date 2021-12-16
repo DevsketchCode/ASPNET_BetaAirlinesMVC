@@ -25,7 +25,7 @@ namespace BetaAirlinesMVC.Models
         [Required]
         public String Username { get; set; }
 
-        [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         [Required]
         public String Password { get; set; }
 

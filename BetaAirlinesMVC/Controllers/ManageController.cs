@@ -11,7 +11,7 @@ namespace BetaAirlinesMVC.Controllers
     // Having it here runs the session check in all actions on this controller
     // Else place it only on the actions that you want it on
     [SessionCheck]
-    public class AdminController : Controller
+    public class ManageController : Controller
     {
         // GET: Admin
         public ActionResult Index()

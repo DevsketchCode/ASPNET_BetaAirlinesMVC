@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Admin: Main";
+    ViewBag.Title = "Manage: Main";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
@@ -8,9 +8,7 @@
     <h2>@ViewBag.Title</h2>
     <ul class="adm">
         <li>@Html.ActionLink("Users", "Index", "Users", null, new { title = "Users" })</li>
-        <li>@Html.ActionLink("User Roles", "Index", "UserRoles", null, new { title = "User Roles" })</li>
         <hr />
-        <li>@Html.ActionLink("Airports", "Index", "Airports", null, new { title = "Airports" })</li>
         <li>@Html.ActionLink("Flights", "Index", "Flights", null, new { title = "Flights" })</li>
         <li>@Html.ActionLink("Booked Flights", "Admin", "BookedFlights", null, new { title = "Booked Flights" })</li>
         <hr />

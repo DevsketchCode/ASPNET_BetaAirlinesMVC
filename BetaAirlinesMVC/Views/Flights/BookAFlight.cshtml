@@ -9,6 +9,10 @@
 <section class="content flexcolumn">
     <h2>@ViewBag.Title</h2>
 
+    <p>
+        @Html.ActionLink("My Flights", "Index", "BookedFlights")
+    </p>
+
     @using (Html.BeginForm("BookAFlight", "Flights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
     {
         @Html.DropDownList("dpt", "-- Departure Flight --")

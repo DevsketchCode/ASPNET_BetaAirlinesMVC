@@ -36,5 +36,10 @@ namespace BetaAirlinesMVC.Models
                 .WillCascadeOnDelete(false);
         }
 
+        public System.Data.Entity.DbSet<BetaAirlinesMVC.ViewModel.MyFlightsViewModel> YourFlightsViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<BetaAirlinesMVC.Models.Contact> Contacts { get; set; }
+
+        //public System.Data.Entity.DbSet<BetaAirlinesMVC.ViewModel.BookedFlightViewModel> BookedFlightViewModels { get; set; }
     }
 }
