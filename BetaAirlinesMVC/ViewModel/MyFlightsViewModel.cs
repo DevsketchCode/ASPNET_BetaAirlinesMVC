@@ -20,8 +20,9 @@ namespace BetaAirlinesMVC.ViewModel
         [Display(Name ="Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Date Booked")]
-        public DateTime DateBooked { get; set; }
+        [Display(Name = "Departure Date")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DepartureDate { get; set; }
 
         [Display(Name= "Active")]
         public int ActiveBookedFlight { get; set; }

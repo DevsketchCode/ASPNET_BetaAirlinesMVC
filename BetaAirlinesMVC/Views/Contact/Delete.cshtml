@@ -1,73 +1,77 @@
 ﻿@model BetaAirlinesMVC.Models.Contact
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Message";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
+    <h4>Are you sure you want to delete this?</h4>
+    <div class="text-left">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Contact</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dd class="email">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Message)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Message)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Message)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Message)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
+        </dl>
+    </div>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-group form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
-</div>
+    <div class="backLink">
+        @Html.ActionLink("Back to List", "Messages")
+    </div>
+
+</section>

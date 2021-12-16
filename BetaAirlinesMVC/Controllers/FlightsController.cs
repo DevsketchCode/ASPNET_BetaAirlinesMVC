@@ -25,7 +25,7 @@ namespace BetaAirlinesMVC.Controllers
         {
 
 
-            var flights = db.Flights.Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport);
+            var flights = db.Flights.Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport).OrderBy(f=>f.DepartureDate);
             return View(flights.ToList());
         }
 
@@ -173,15 +173,16 @@ namespace BetaAirlinesMVC.Controllers
                 // Get the list of predetermined flights for the user to choose from
                 if (dpt != null && arr != null)
                 {
-                    model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt && x.ArrivalAirportId == arr));
+                    model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt && x.ArrivalAirportId == arr).OrderBy(x => x.DepartureDate));
                 }
                 else if ((dpt != null && arr == null) || (dpt == null && arr != null))
                 {
-                    model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt || x.ArrivalAirportId == arr));
+                    model.FlightList = new List<Flight>(db.Flights.Where(x => x.DepartureAirportId == dpt || x.ArrivalAirportId == arr).OrderBy(x => x.DepartureDate));
                 }
                 else
                 {
                     model.FlightList = db.Flights.ToList();
+                    model.FlightList.OrderBy(x => x.DepartureDate);
                 }
             } catch(Exception ex)
             {

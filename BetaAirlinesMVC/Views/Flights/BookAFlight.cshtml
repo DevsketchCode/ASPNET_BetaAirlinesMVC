@@ -15,8 +15,8 @@
 
     @using (Html.BeginForm("BookAFlight", "Flights", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get))
     {
-        @Html.DropDownList("dpt", "-- Departure Flight --")
-        @Html.DropDownList("arr", "-- Arrival Flight --")
+        @Html.DropDownList("dpt", null, "-- Departure Flight --", htmlAttributes: new { @class = "form-control dropdown" })
+        @Html.DropDownList("arr", null, "-- Arrival Flight --", htmlAttributes: new { @class = "form-control dropdown" })
         <input type="submit" value="Search" />
     }
     <table>

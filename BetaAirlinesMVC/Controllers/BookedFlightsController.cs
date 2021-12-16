@@ -29,7 +29,7 @@ namespace BetaAirlinesMVC.Controllers
 
             try { 
             int loggedInUser = (int)Session["id"];
-            foreach (var flight in db.BookedFlights.Where(x => x.UserId == loggedInUser))
+            foreach (var flight in db.BookedFlights.Where(x => x.UserId == loggedInUser).OrderBy(x => x.DateBooked))
                 {
                     // Get flight data
                     Flight flights = db.Flights.Where(x => x.Id == flight.FlightId).SingleOrDefault();
@@ -43,10 +43,11 @@ namespace BetaAirlinesMVC.Controllers
                     mfvm.UserId = flight.UserId;
                     mfvm.FirstName = theUser.FirstName;
                     mfvm.LastName = theUser.LastName;
-                    mfvm.DateBooked = flight.DateBooked;
+                    mfvm.DepartureDate = flights.DepartureDate;
                     mfvm.DepartureAirport = depAirport.Name;
                     mfvm.ArrivalAirport = arrAirport.Name;
                     mfvm.ActiveBookedFlight = flight.Active;
+                    
 
 
                     yourFlights.Add(mfvm);
@@ -63,7 +64,7 @@ namespace BetaAirlinesMVC.Controllers
         // GET: BookedFlights
         public ActionResult Admin()
         {
-            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.BookedUserId);
+            var bookedFlights = db.BookedFlights.Include(b => b.Flight).Include(b => b.BookedUserId).OrderBy(x => x.DateBooked);
             return View(bookedFlights.ToList());
         }
 

@@ -26,7 +26,7 @@ namespace BetaAirlinesMVC.Controllers
         [SessionCheck]
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.UserRole);
+            var users = db.Users.Include(u => u.UserRole).OrderBy(x=>x.FirstName);
             return View(users.ToList());
         }
 
@@ -222,10 +222,6 @@ namespace BetaAirlinesMVC.Controllers
             }
             UserRole userRole = db.UserRoles.Where(x => x.Id == user.UserRoleID).SingleOrDefault();
             
-            
-            // DELETE THIS!
-            // FIX THIS LOGIN AND SET AS SESSION AS LOGGED IN
-
             DataValidation authenticate = new DataValidation();
             bool isVerified = authenticate.IsAuthenticated(user.Id, password);
             if (isVerified)

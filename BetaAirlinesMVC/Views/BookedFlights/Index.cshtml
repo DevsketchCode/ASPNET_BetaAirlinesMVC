@@ -15,7 +15,7 @@
     <table>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateBooked)
+                @Html.DisplayNameFor(model => model.DepartureDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DepartureAirport)
@@ -30,7 +30,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateBooked)
+                    @Html.DisplayFor(modelItem => item.DepartureDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DepartureAirport)
@@ -38,7 +38,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ArrivalAirport)
                 </td>
-                <td>
+                <td class="buttons">
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>

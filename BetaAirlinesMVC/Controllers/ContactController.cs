@@ -17,7 +17,13 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Contacts/Index (to create new message)
         public ActionResult Index()
         {
-            return View();
+            Contact model = new Contact();
+
+            // set default values for the form
+            model.Date = DateTime.Today;
+            model.Active = 1;
+
+            return View(model);
         }
 
         // POST: Contacts/Create
@@ -31,10 +37,16 @@ namespace BetaAirlinesMVC.Controllers
             {
                 db.Contacts.Add(contact);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Confirmation");
             }
 
             return View(contact);
+        }
+
+        // GET: Contacts/MessageConfirmation
+        public ActionResult Confirmation()
+        {
+            return View();
         }
 
         // GET: Contacts

@@ -27,7 +27,7 @@
                     {
                     <li>@Html.ActionLink("Book a Flight", "BookAFlight", "Flights", null, new { title = "Book a Flight" })</li>
                     }
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home", null, new { title = "A contact form to ask us a question or provide feedback." })</li>
+                    <li>@Html.ActionLink("Contact Us", "Index", "Contact", null, new { title = "A contact form to ask us a question or provide feedback." })</li>
                     @if (Session != null && Session["id"] != null && Session["pw"] != null)
                     {
                         <li>@Html.ActionLink("Logout", "Login", "Users", null, new { title = "Logout" })</li>

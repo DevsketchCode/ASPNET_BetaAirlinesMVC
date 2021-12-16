@@ -156,9 +156,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202111280412482_InitialCreate.cs" />
-    <Compile Include="Migrations\202111280412482_InitialCreate.Designer.cs">
-      <DependentUpon>202111280412482_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202112160224069_Initial.cs" />
+    <Compile Include="Migrations\202112160224069_Initial.Designer.cs">
+      <DependentUpon>202112160224069_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Airport.cs" />
@@ -300,7 +300,6 @@
     <Content Include="Views\Flights\BookAFlight.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
-    <Content Include="Views\BookedFlights\2Index.cshtml" />
     <Content Include="Views\BookedFlights\Index.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Contact\Messages.cshtml" />
@@ -308,6 +307,7 @@
     <Content Include="Views\Contact\Delete.cshtml" />
     <Content Include="Views\Contact\Details.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -315,14 +315,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202111280412482_InitialCreate.resx">
-      <DependentUpon>202111280412482_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202112160224069_Initial.resx">
+      <DependentUpon>202112160224069_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

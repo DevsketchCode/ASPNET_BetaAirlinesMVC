@@ -23,7 +23,8 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Airports
         public ActionResult Index()
         {
-            return View(db.Airports.ToList());
+            var airportList = db.Airports.ToList().OrderBy(x => x.Name);
+            return View(airportList);
         }
 
         // GET: Airports/Details/5

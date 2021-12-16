@@ -1,67 +1,75 @@
 ﻿@model BetaAirlinesMVC.Models.Contact
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Message Details";
     Layout = "~/Views/Shared/_BetaAirlinesLayout.cshtml";
 }
 
-<h2>Details</h2>
+<section class="content flexcolumn">
+    <h2>@ViewBag.Title</h2>
 
-<div>
-    <h4>Contact</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="text-left">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd class="email">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Message)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Message)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Message)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Message)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <div class="form-group">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ActionLink("Edit Message", "Edit", new { id = Model.Id })
+        }
+    </div>
+    <div class="backLink">
+        @Html.ActionLink("Back to List", "Messages")
+    </div>
+</section>

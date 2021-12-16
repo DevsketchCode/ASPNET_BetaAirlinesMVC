@@ -148,6 +148,10 @@ footer {
     font-size: 2em;
 }
 
+.buttons {
+    line-height: 40px;
+}
+
 .content a {
     background-color: #337ab7;
     border: 1px solid #2e6da4;
@@ -155,6 +159,7 @@ footer {
     color: #FFFFFF;
     font-weight: normal;
     font-size: 14px;
+    margin: 0 3px;
     padding: 8px;
     text-decoration: none;
 }
@@ -170,12 +175,30 @@ footer {
     padding: 10px;
 }
 
+.email a {
+    background-color: initial;
+    border: 0;
+    color: #286090;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+}
+
+.email a:hover {
+    background-color: initial;
+    text-decoration: underline;
+}
+
 .adm hr {
     border: 1px solid #5C778D;
 }
 
 .content tr {
-    line-height: 40px;
+    border-bottom: 1px solid #9bc2e4;
+}
+
+.content table {
+    margin-top: 10px;
 }
 
 .content > p:first-child{
@@ -289,97 +312,15 @@ th, td {
     text-align: center;
 }
 
-/* Contact Page */
-
-#ContentPlaceHolder1_ValidationSummary {
-    color: red;
-    font-style: italic;
-    margin-left: 150px;
-    margin-bottom: 10px;
-}
-
-fieldset {
-    border: 1px solid #5C778D;
-    padding: 20px;
-    margin: 20px;
-}
-
-legend {
-    text-align: left;
-}
-
-#contactFields {
-    display: flex;
-    flex-direction: column;
+.dropdown {
+    display: inline-block;
+    margin: 10px;
     width: auto;
 }
 
-#contactFields span {
-    padding: 10px;
-}
-
-#contactFields span:first-child {
-    text-align: right;
-    width: 120px;
-}
-
-#contactFields input, textarea {
-    margin: 10px;
-    height: 20px;
-}
-
-#contactFields textarea {
-    width: 400px;
-    height: 60px;
-}
-
-#contactFields input[type=submit], #contactFields input[type=reset] {
-    width: 100px;
-}
-
-#formButtons {
-    margin-top: 20px;
-    margin-left: 140px;
-    text-align: left;
-}
-
-#contactFields input[type=submit] {
-    margin-right: 45px;
-}
-
-#formButtons.field {
-    justify-content: space-between;
-}
-
-.field {
-    display: flex;
-    flex-direction: row;
-}
-
-.confirmation h3 {
-    margin-left: 50px;
-}
-
-#viewMessages {
-    margin-left: 30px;
-}
-
-#viewMessages a {
-    color: #273498;
-    text-decoration: underline;
-}
-
-#viewMessages a:hover {
-    color: #4C6E8C;
-}
-
-#UserMessageFVContainer table {
-    width: 600px;
-    font-weight: bold;
-}
-
-#UserMessageFVContainer table span {
-    font-weight: normal;
+/* Contact Page */
+.limitWidth {
+    max-width: 450px;
 }
 
 /* Tablet */

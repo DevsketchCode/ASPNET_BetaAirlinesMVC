@@ -21,6 +21,7 @@ namespace BetaAirlinesMVC.ViewModel
         public int UserId { get; set; }
 
         [Display(Name = "Date Booked")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public String DateBooked { get; set; }
 
         public DateTime DepartureDate { get; set; }
