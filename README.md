@@ -1,6 +1,6 @@
 <h1>Beta Airlines</h1>
 This website was created with ASP.NET MVC using C#. <br>
-This connects to an Microsoft SQL database that stores the user, flight, and message data.<br>
+This connects to a Microsoft SQL database that stores the user, flight, and message data.<br>
 There are 3 separate user access roles, applying the appropriate restrictions for each. (Guest, Manager, and Admin)<br>
 The administrator would have the ability to add more roles and have full access to setting up flights, airports, users, etc.<br>
 The manager has limited administrative privileges, but are able to manage users and messages that come in through the contact form. <br>
