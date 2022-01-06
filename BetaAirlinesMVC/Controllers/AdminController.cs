@@ -16,6 +16,7 @@ namespace BetaAirlinesMVC.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            System.Diagnostics.Debug.WriteLine("test");
             return View();
         }
     }

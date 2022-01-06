@@ -229,6 +229,7 @@ namespace BetaAirlinesMVC.Controllers
                 this.Session["id"] = user.Id;
                 this.Session["pw"] = user.Password;
                 this.Session["role"] = userRole.Role;
+
                 if(userRole.Role == "Admin")
                 {
                     return RedirectToAction("Index", "Admin");
